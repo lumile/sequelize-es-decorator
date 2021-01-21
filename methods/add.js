@@ -18,7 +18,7 @@ module.exports = (model, client, database, globalOptions) => {
                 client.index({
                     index: database,
                     id: created.id,
-                    type: database,
+                    type: options.type,
                     body
                 })
                     .then(() => resolve(created))

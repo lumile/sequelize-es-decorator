@@ -22,7 +22,7 @@ module.exports = (model, client, database, globalOptions) => {
                     client.index({
                         index: database,
                         id: updatedEntry.id,
-                        type: database,
+                        type: options.type,
                         body
                     })
                         .then(() => resolve(updated))

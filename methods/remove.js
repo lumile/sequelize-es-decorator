@@ -25,7 +25,7 @@ module.exports = (model, client, database, globalOptions) => {
                 await client.delete({
                     index: database,
                     id: entry.id,
-                    type: database,
+                    type: options.type
                 });
             } catch (err) {
                 globalOptions.handleError && globalOptions.handleError(err);
