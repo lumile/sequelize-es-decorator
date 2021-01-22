@@ -17,7 +17,7 @@ module.exports = (model, client, database, globalOptions) => {
 
                 client.index({
                     index: database,
-                    id: created.id,
+                    id: created[options.fieldToUseAsId],
                     type: options.type,
                     body
                 })

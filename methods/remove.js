@@ -9,7 +9,7 @@ module.exports = (model, client, database, globalOptions) => {
     model[methods.remove] = async operationOptions => {
         let entries = await model.findAll({
             attributes: {
-                include: ['id']
+                include: [options.fieldToUseAsId]
             },
             ...operationOptions
         });
@@ -24,7 +24,7 @@ module.exports = (model, client, database, globalOptions) => {
             try {
                 await client.delete({
                     index: database,
-                    id: entry.id,
+                    id: entry[options.fieldToUseAsId],
                     type: options.type
                 });
             } catch (err) {
