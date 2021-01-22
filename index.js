@@ -8,7 +8,7 @@ const decorateIndex = require('./methods/index');
 const decorateApplySettings = require('./methods/applySettings');
 
 class Decorator {
-    constructor(esConfig, database, indexSetting, options) {
+    constructor(esConfig, database, indexSetting, indexMappings, options) {
         if (esConfig) {
             this.client = new elasticsearch.Client(esConfig);
         } else {
@@ -22,6 +22,7 @@ class Decorator {
         }
 
         this.indexSetting = indexSetting;
+        this.indexMappings = indexMappings;
         this.options = options || {};
     }
 
@@ -31,17 +32,18 @@ class Decorator {
 
             if (options && typeCheck(types.modelIndexConfig, options)) {
                 this.client.indices.exists({
-                    index: `${this.database}_${options.type}`
+                    index: this.database
                 }).then(res => {
                     const status = !(res.statusCode === 404);
                     if (!status) {
                         this.client.indices.create(this.indexSetting ? {
-                            index: `${this.database}_${options.type}`,
+                            index: this.database,
                             body: {
-                                settings: this.indexSetting
+                                settings: this.indexSetting,
+                                mappings: this.indexMappings
                             }
                         } : {
-                            index: `${this.database}_${options.type}`
+                            index: this.database
                         });
                     }
                 });
