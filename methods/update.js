@@ -10,7 +10,7 @@ module.exports = (model, client, database, globalOptions) => {
         operationOptions.returning = true;
 
         return new Promise(resolve => {
-            model.originalUpdate(entry, operationOptions).then(updated => {
+            model.originalUpdate(entry, operationOptions).then(async updated => {
                 let body = {};
                 let updatedEntry = updated[1][0];
 
