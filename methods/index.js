@@ -1,4 +1,3 @@
-require('array.prototype.flatmap').shim();
 require('array.prototype.flat').shim();
 
 module.exports = (model, client, database) => {
