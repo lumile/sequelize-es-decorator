@@ -8,12 +8,16 @@ module.exports = (model, client, database, globalOptions) => {
 
     model[methods.create] = async entry => {
         return new Promise(resolve => {
-            model.originalCreate(entry).then(created => {
+            model.originalCreate(entry).then(async created => {
                 let body = {};
 
                 options.keys.map(key => {
                     body[key] = created[key];
                 });
+
+                for (const key of options.virtualGetters) {
+                    body[key] = await created[key]();
+                }
 
                 client.index({
                     index: database,

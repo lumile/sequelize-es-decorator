@@ -19,6 +19,10 @@ module.exports = (model, client, database, globalOptions) => {
                         body[key] = updatedEntry[key];
                     });
 
+                    for (const key of options.virtualGetters) {
+                        body[key] = await updatedEntry[key]();
+                    }
+
                     client.index({
                         index: database,
                         id: updatedEntry[options.fieldToUseAsId],
