@@ -10,5 +10,10 @@ module.exports = {
             update: 'update',
             remove: 'destroy'
         }
+    },
+    events: {
+        sequelize: {
+            afterUpdate: 'afterUpdate'
+        }
     }
 };

@@ -2,7 +2,8 @@ const elasticsearch = require('@elastic/elasticsearch');
 const {typeCheck} = require('type-check');
 const {types} = require('./config/constants');
 const decorateAdd = require('./methods/add');
-const decorateUpdate = require('./methods/update');
+//const decorateUpdate = require('./methods/update');
+const decorateAfterUpdate = require('./events/afterUpdate');
 const decorateRemove = require('./methods/remove');
 const decorateIndex = require('./methods/index');
 const decorateApplySettings = require('./methods/applySettings');
@@ -49,7 +50,8 @@ class Decorator {
                 });
 
                 decorateAdd(model, this.client, this.database, this.options);
-                decorateUpdate(model, this.client, this.database, this.options);
+                //decorateUpdate(model, this.client, this.database, this.options);
+                decorateAfterUpdate(model, this.client, this.database, this.options);
                 decorateRemove(model, this.client, this.database, this.options);
                 decorateIndex(model, this.client, this.database);
                 decorateApplySettings(model, this.client, this.database, this.indexSetting);
