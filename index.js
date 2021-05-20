@@ -39,6 +39,7 @@ class Decorator {
                     if (!status) {
                         this.client.indices.create(this.indexSetting ? {
                             index: this.database,
+                            includeTypeName: true,
                             body: {
                                 settings: this.indexSetting,
                                 mappings: this.indexMappings
